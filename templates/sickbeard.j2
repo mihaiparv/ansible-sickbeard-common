@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+
+## username to run sickbeard under, the default is sickbeard
+{% if sickbeard_user is defined %}
+SB_USER={{ sickbeard_user }}
+{% else %}
+#SB_USER= #$RUN_AS
+{% endif %}
+
+## the location of sickbeard.py, the default is /opt/sickbeard
+SB_HOME={{ sickbeard_install_dir }}
+
+## the location of sickbeard.db, cache, logs, the default is /var/sickbeard
+#SB_DATA= #$DATA_DIR
+
+## the location of sickbeard.pid, the default is /var/run/sickbeard.pid
+#SB_PIDFILE= #$PID_FILE
+
+## the location of the python binary, the default is /usr/bin/python
+#PYTHON_BIN= #$DAEMON
+
+## extra cli option for sickbeard, i.e. " --config_file=/home/sickbeard/sickbeard.ini"
+#SB_OPTS= #$EXTRA_DAEMON_OPTS
+
+## extra start-stop-daemon option like " --group=users"
+#SSD_OPTS= #$EXTRA_SSD_OPTS

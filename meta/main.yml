@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: "Mihai Parv"
+  company:
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+   - name: RedHat
+     versions:
+      - all
+   - name: Debian
+     versions:
+      - all
+  categories:
+   - media
+dependencies: []

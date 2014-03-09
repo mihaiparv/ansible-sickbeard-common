@@ -1,0 +1,44 @@
+---
+- name: ensure dependencies are installed for Debian systems
+  apt: pkg=python-cheetah state=present
+  when: ansible_os_family == 'RedHat'
+  tags: sickbeard
+
+- name: ensure dependencies are installed for Debian systems
+  yum: name=python-cheetah state=present
+  when: ansible_os_family == 'Debian'
+  tags: sickbeard
+
+- name: ensure the install dir is available
+  file: path={{ sickbeard_install_dir }}
+        owner={{ user }} mode=755
+  tags: sickbeard
+
+- name: ensure the git repository is checked-out
+  git: repo={{ sickbeard_github_repo }}
+       dest={{ sickbeard_install_dir }}
+  tags: sickbeard
+
+- name: ensure start-up config file is present
+  template: src=sickbeard.j2
+            dest=/etc/default/sickbeard
+            owner={{ user }} mode=755
+  tags: sickbeard
+
+- name: ensure start-up script is configured for Debian systems
+  file: src='{{ sickbeard_install_dir }}/init.ubuntu'
+        dest=/etc/init.d/sickbeard
+        state=link
+  when: ansible_os_family == 'Debian'
+  tags: sickbeard
+
+- name: ensure start-up script is configured for RedHat systems
+  file: src='{{ sickbeard_install_dir }}/init.fedora'
+        dest=/etc/init.d/sickbeard
+        state=link
+  when: ansible_os_family == 'RedHat'
+  tags: sickbeard
+
+- name: ensure the sickbeard service is enabled at boot
+  service: name=sickbeard enabled=true
+  tags: sickbeard
