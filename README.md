@@ -1,7 +1,8 @@
-ansible-couchpotato-common
+ansible-sickbeard-common
 =====
 
-This role installs and configures [CouchPotato](https://couchpota.to/), an awesome PVR for usenet and torrents.
+This role installs and configures [SickBeard](http://sickbeard.com/), an awesome
+PVR & episode guide that downloads and manages all your TV shows .
 
 Requirements
 ------------
@@ -16,28 +17,39 @@ The variables that can be passed to this role and a brief description about
 them are as follows.
 
     # The install directory
-    couchpotato_install_dir: '/opt/couchpotato'
+    sickbeard_install_dir: '/opt/sickbeard'
 
     # The user under which the service should run
-    couchpotato_user: 'couchpotato'
+    sickbeard_user: 'sickbeard'
+
+    # The sickbeard GitHub repository to checkout
+    sickbeard_github_repo: 'https://github.com/midgetspy/Sick-Beard.git'
 
 Examples
 ========
 
-1) Install couchpotato with default settings
+1) Install sickbeard with default settings
 
     - hosts: all
       roles:
-      - ansible-couchpotato-common
+      - ansible-sickbeard-common
 
 
-2) Install couchpotato with customized install path and runas user.
+2) Install sickbeard with customized install path and runas user.
 
     - hosts: all
       roles:
-      - {role: ansible-couchpotato-common,
-         couchpotato_user: 'root',
-         couchpotato_install_dir: '/usr/local/couchpotato'}
+      - {role:                  'ansible-sickbeard-common',
+         sickbeard_user:        'root',
+         sickbeard_install_dir: '/usr/local/sickbeard'}
+
+
+2) Install sickbeard-tpb (The Pirate Bay edition).
+
+    - hosts: all
+      roles:
+      - {role:                  'ansible-sickbeard-common',
+         sickbeard_github_repo: 'https://github.com/mr-orange/Sick-Beard.git'}
 
 Dependencies
 ------------
